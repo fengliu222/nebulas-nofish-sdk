@@ -6,11 +6,13 @@ const {
 	inviteVoter,
 	vote,
 	getVoteInfo,
-	getRanksInfo
+	getRanksInfo,
+	getRankById
 } = require('./index');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs')
 
 // create ranking
 app.post('/rankings', async ({ body }, res) => {
@@ -53,5 +55,24 @@ app.get('/rankings', async (req, res) => {
 	const info = await getRanksInfo();
 	res.json({ data: '数据' });
 });
+
+app.get('/public/ranks/:id', async ({ params }, res) => {
+	// const info = await getRankById(params.id);
+	console.log(params.id)
+	res.render('index', {
+		name: '黑客马拉松',
+		items: [{
+			count: 19,
+			percent: 20,
+			name: '无鱼排行',
+			desc: '描述文字'
+		},{
+			count: 5,
+			percent: 5,
+			name: '无鱼排行',
+			desc: '描述文字'
+		}]
+	});
+})
 
 app.listen(process.env.PORT || 8080);
