@@ -46,7 +46,8 @@ function inviteVoter(voter) {
     }
     const req = {
         name: voter.name,
-        description: voter.description
+        description: voter.description,
+        rankId: voter.rankId
     }
 
     var callFunction = "inviteVoter";
