@@ -11,21 +11,21 @@ var dappAddress = "n1mE8CAJvPFD82SNWprEJ4RmJctcua4zpSg";
 acc = acc.fromKey(v4, "liuzhenkuo0316", true);
 
 var from = acc.getAddressString();
-var value = "0";
-var nonce = "0"
-var gas_price = "1000000"
-var gas_limit = "2000000"
+var value = '0';
+var nonce = '0';
+var gas_price = '1000000';
+var gas_limit = '2000000';
 
 function createRank(rank) {
-    if(!rank){
-        return
-    }
-    const req = {
-        name: rank.name,
-        description: rank.description,
-        max_voter: rank.max_voter,
-        items: rank.items
-    }
+	if (!rank) {
+		return;
+	}
+	const req = {
+		name: rank.name,
+		description: rank.description,
+		max_voter: rank.max_voter,
+		items: rank.items
+	};
 
     var callFunction = "createRank";
     var callArgs = "[\"" + JSON.stringify(req) + "\"]";
@@ -43,14 +43,14 @@ function createRank(rank) {
 }
 
 function inviteVoter(voter) {
-    if(!voter) {
-        return
-    }
-    const req = {
-        name: voter.name,
-        description: voter.description,
-        rankId: voter.rankId
-    }
+	if (!voter) {
+		return;
+	}
+	const req = {
+		name: voter.name,
+		description: voter.description,
+		rankId: voter.rankId
+	};
 
     var callFunction = "inviteVoter";
     var callArgs = "[\"" + JSON.stringify(req) + "\"]";
@@ -67,16 +67,10 @@ function inviteVoter(voter) {
     })
 }
 
-
 function vote(v) {
-    if(!v){
-        return
-    }
-    
-    const req = {
-        itemId: v.itemId,
-        rankId: v.rankId
-    }
+	if (!v) {
+		return;
+	}
 
     var callFunction = "vote";
     var callArgs = "[\"" + JSON.stringify(req) + "\"]";
@@ -93,11 +87,10 @@ function vote(v) {
     })
 }
 
-
 function getVoteInfo(rankId) {
-    if(!rankId){
-        return
-    }
+	if (!rankId) {
+		return;
+	}
 
     var callFunction = "getVoteInfo";
     var callArgs = "[\"" + rankId + "\"]";
@@ -113,6 +106,7 @@ function getVoteInfo(rankId) {
         })  
     })
 }
+
 function getRanksInfo() {
     var callFunction = "get";
     var callArgs = "[\"zhenkuo\"]";
@@ -129,11 +123,10 @@ function getRanksInfo() {
     })
 }
 
-
 module.exports = {
-    createRank,
-    inviteVoter,
-    vote,
-    getVoteInfo,
-    getRanksInfo
-}
+	createRank,
+	inviteVoter,
+	vote,
+	getVoteInfo,
+	getRanksInfo
+};
