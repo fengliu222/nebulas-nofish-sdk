@@ -78,4 +78,4 @@ app.get('/public/ranks/:id', async ({ params }, res) => {
 	});
 });
 
-app.listen(process.env.PORT || 8080);
+app.listen(3000);
