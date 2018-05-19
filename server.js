@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // create ranking
-app.post('/rankings/', async ({ body }, res) => {
+app.post('/rankings', async ({ body }, res) => {
 	const response = await createRank({
 		name: body.name,
 		description: body.description,
