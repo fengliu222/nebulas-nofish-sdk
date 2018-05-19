@@ -1,12 +1,14 @@
+var nebulas = require('nebulas');
 var Neb = require('nebulas').Neb;
 var Account = require('nebulas').Account;
 var nebClient = new Neb()
+nebClient.setRequest(new nebulas.HttpRequest("https://mainnet.nebulas.io"))
 var api = nebClient.api
 
-var v4 = '{"version":4,"id":"13ea098e-e8f5-4223-abe4-383097f7a422","address":"n1X8LWYbQbQqv8fZQmwFpo6azYRT6NxpEPc","crypto":{"ciphertext":"4ddfb2cbb82e591225ba7d2e1ebc8ddc9444f8ef0546b5ed2252021d319586c6","cipherparams":{"iv":"17b7a4ab91c88275d7bcefc53345f65c"},"cipher":"aes-128-ctr","kdf":"scrypt","kdfparams":{"dklen":32,"salt":"6185bfe35c89d3498c33a9f878fa2e7e9a13f0c4f5102ce7e7b0af5c2c188e43","n":4096,"r":8,"p":1},"mac":"f76215ce79c6bbb99cd1f19330b6e88d3d96741ab523102fcd0a028f2bff0cd3","machash":"sha3256"}}';
+var v4 = '{"version":4,"id":"4b80625e-eef0-42f4-97ad-e4005b3b20a1","address":"n1Uvh5mFqNWApVdWXnWKxaiRrMPYcBsfWWN","crypto":{"ciphertext":"64f7267c6376ceea314e579d29ddf7b7032401bd97acbcb969c42f2460e6fd6c","cipherparams":{"iv":"37ac99ce2e44095d0fca8d4a59200559"},"cipher":"aes-128-ctr","kdf":"scrypt","kdfparams":{"dklen":32,"salt":"31cc27adc182aeb1a626af47ca53926cdd3cb0df819b357aff1766daefb83e24","n":4096,"r":8,"p":1},"mac":"976c44d7a7be970e5512c59a9e812143216d50c02a51c3d6c8ac3db7844e0943","machash":"sha3256"}}';
 var acc = new Account();
-var dappAddress = "n1oXdmwuo5jJRExnZR5rbceMEyzRsPeALgm";
-acc = acc.fromKey(v4, "nodecapital", true);
+var dappAddress = "n1mE8CAJvPFD82SNWprEJ4RmJctcua4zpSg";
+acc = acc.fromKey(v4, "liuzhenkuo0316", true);
 
 var from = acc.getAddressString();
 var value = "0";
@@ -32,7 +34,7 @@ function createRank(rank) {
         "args": callArgs
     }
     return new Promise(function(resolve, reject){
-        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
+    api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
             resolve(resp)
         }).catch(function (err) {
             reject(err)
@@ -57,7 +59,7 @@ function inviteVoter(voter) {
         "args": callArgs
     }
     return new Promise(function(resolve, reject){
-        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
+        api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
             resolve(resp)
         }).catch(function (err) {
             reject(err)
@@ -83,7 +85,7 @@ function vote(v) {
         "args": callArgs
     }
     return new Promise(function(resolve, reject){
-        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
+        api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
             resolve(resp)
         }).catch(function (err) {
             reject(err)
@@ -104,7 +106,7 @@ function getVoteInfo(rankId) {
         "args": callArgs
     }
     return new Promise(function(resolve, reject){
-        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
+        api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
             resolve(resp)
         }).catch(function (err) {
             reject(err)
@@ -112,14 +114,14 @@ function getVoteInfo(rankId) {
     })
 }
 function getRanksInfo() {
-    var callFunction = "getRanksInfo";
-    var callArgs = "[0]";
+    var callFunction = "get";
+    var callArgs = "[\"zhenkuo\"]";
     var contract = {
         "function": callFunction,
         "args": callArgs
     }
     return new Promise(function(resolve, reject){
-        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
+        api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
             resolve(resp)
         }).catch(function (err) {
             reject(err)
