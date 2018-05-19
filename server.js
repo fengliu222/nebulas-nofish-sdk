@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 // create ranking
-app.post('/rankings', async ({ body }, res) => {
+app.post('/api/rankings', async ({ body }, res) => {
 	const response = await createRank({
 		name: body.name,
 		description: body.description,
@@ -26,7 +26,7 @@ app.post('/rankings', async ({ body }, res) => {
 });
 
 // invite voter
-app.post('/invite-voter', async ({ body }, res) => {
+app.post('/api/invite-voter', async ({ body }, res) => {
 	const response = await inviteVoter({
 		name: body.name,
 		description: body.description,
@@ -36,7 +36,7 @@ app.post('/invite-voter', async ({ body }, res) => {
 });
 
 // vote
-app.post('/vote', async ({ body }, res) => {
+app.post('/api/vote', async ({ body }, res) => {
 	const response = await vote({
 		itemId: body.itemId,
 		rankId: body.rankId
@@ -45,13 +45,13 @@ app.post('/vote', async ({ body }, res) => {
 });
 
 // get vote info
-app.get('/vote-info/:id', async ({ params }, res) => {
+app.get('/api/vote-info/:id', async ({ params }, res) => {
 	const data = await vote(params.id);
 	res.json({ data });
 });
 
 // get ranking
-app.get('/rankings', async (req, res) => {
+app.get('/api/rankings', async (req, res) => {
 	const data = await getRanksInfo();
 	res.json({ data });
 });
