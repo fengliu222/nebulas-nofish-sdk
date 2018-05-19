@@ -12,7 +12,7 @@ const {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 // create ranking
 app.post('/rankings', async ({ body }, res) => {
@@ -46,33 +46,36 @@ app.post('/vote', async ({ body }, res) => {
 
 // get vote info
 app.get('/vote-info/:id', async ({ params }, res) => {
-	const response = await vote(params.id);
-	res.json({ data: '数据' });
+	const data = await vote(params.id);
+	res.json({ data });
 });
 
 // get ranking
 app.get('/rankings', async (req, res) => {
-	const info = await getRanksInfo();
-	res.json({ data: '数据' });
+	const data = await getRanksInfo();
+	res.json({ data });
 });
 
 app.get('/public/ranks/:id', async ({ params }, res) => {
 	// const info = await getRankById(params.id);
-	console.log(params.id)
+	console.log(params.id);
 	res.render('index', {
 		name: '黑客马拉松',
-		items: [{
-			count: 19,
-			percent: 20,
-			name: '无鱼排行',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 5,
-			name: '无鱼排行',
-			desc: '描述文字'
-		}]
+		items: [
+			{
+				count: 19,
+				percent: 20,
+				name: '无鱼排行',
+				desc: '描述文字'
+			},
+			{
+				count: 5,
+				percent: 5,
+				name: '无鱼排行',
+				desc: '描述文字'
+			}
+		]
 	});
-})
+});
 
 app.listen(process.env.PORT || 8080);
