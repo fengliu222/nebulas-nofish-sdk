@@ -64,11 +64,41 @@ app.get('/public/ranks/:id', async ({ params }, res) => {
 		items: [{
 			count: 19,
 			percent: 20,
-			name: '无鱼排行',
+			name: 'HC',
 			desc: '描述文字'
 		},{
 			count: 5,
 			percent: 5,
+			name: '对标链',
+			desc: '描述文字'
+		},{
+			count: 5,
+			percent: 5,
+			name: '无鱼排行',
+			desc: '描述文字'
+		},{
+			count: 5,
+			percent: 25,
+			name: '无鱼排行',
+			desc: '描述文字'
+		},{
+			count: 5,
+			percent: 35,
+			name: '无鱼排行',
+			desc: '描述文字'
+		},{
+			count: 5,
+			percent: 15,
+			name: '无鱼排行',
+			desc: '描述文字'
+		},{
+			count: 5,
+			percent: 95,
+			name: '无鱼排行',
+			desc: '描述文字'
+		},{
+			count: 5,
+			percent: 55,
 			name: '无鱼排行',
 			desc: '描述文字'
 		}]
