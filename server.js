@@ -71,13 +71,14 @@ app.get('/public/ranks/:id', async ({ params }, res) => {
 		return i.name === '全球区块链黑客马拉松'
 	})[0]
 	const votes = votes_temp || []
+	console.log('votes_temp', votes_temp)
 	const items = tickers.items || []
 	const avotes = items.map(i => {
 		const count = votes.filter(a => a.item_name === i.item_name).length
 		const sum = votes.length
 		return {
 			count: count,
-			percent: (votes / sum) * 100,
+			percent: sum > 0 ? (count / sum) * 100 : 0,
 			name: i.item_name,
 			desc: i.desc
 		}
