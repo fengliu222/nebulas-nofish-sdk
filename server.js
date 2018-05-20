@@ -1,6 +1,7 @@
 const app = require('express')();
+const express = require('express');
 const bodyParser = require('body-parser');
-
+var cors = require('cors')
 const {
 	createRank,
 	inviteVoter,
@@ -14,6 +15,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
+
+var votes_temp = []
+
+app.use(cors())
 // create ranking
 app.post('/api/rankings', async ({ body }, res) => {
 	const response = await createRank({
@@ -36,12 +41,13 @@ app.post('/api/invite-voter', async ({ body }, res) => {
 });
 
 // vote
-app.post('/api/vote', async ({ body }, res) => {
-	const response = await vote({
-		itemId: body.itemId,
-		rankId: body.rankId
-	});
-	res.json({ success: true });
+app.post('/api/vote', async ({ body, params }, res) => {
+	votes_temp.push({
+		rank_name: body.rank_name,
+		voter_name: body.voter_name,
+		item_name: body.item_name
+	})
+	res.json(votes_temp);
 });
 
 // get vote info
@@ -53,7 +59,10 @@ app.get('/api/vote-info/:id', async ({ params }, res) => {
 // get ranking
 app.get('/api/rankings', async (req, res) => {
 	const data = await getRanksInfo();
-	res.json({ data });
+	res.json({ data: data.map(i => ({
+		...i,
+		votes: votes_temp
+	})) });
 });
 
 app.get('/public/ranks/:id', async ({ params }, res) => {
@@ -61,12 +70,11 @@ app.get('/public/ranks/:id', async ({ params }, res) => {
 	const tickers = info.filter((i) => {
 		return i.name === '全球区块链黑客马拉松'
 	})[0]
-	const votes = tickers.votes || []
+	const votes = votes_temp || []
 	const items = tickers.items || []
 	const avotes = items.map(i => {
 		const count = votes.filter(a => a.item_name === i.item_name).length
 		const sum = votes.length
-		console.log(count, sum);
 		return {
 			count: count,
 			percent: (votes / sum) * 100,
@@ -79,5 +87,9 @@ app.get('/public/ranks/:id', async ({ params }, res) => {
 		items: avotes
 	});
 });
+
+app.use('/', express.static('nofish-voter/dist'));
+app.use('/login', express.static('nofish-voter/dist'));
+app.use('/dashboard', express.static('nofish-voter/dist'));
 
 app.listen(9000);
