@@ -87,7 +87,7 @@ function vote(rank_name, voter_name, item_name, ) {
         "function": callFunction,
         "args": callArgs
     }
-    return fetch('http://localhost:9000/api/vote', {
+    return fetch('http://47.75.65.198:9999/api/vote', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -98,15 +98,7 @@ function vote(rank_name, voter_name, item_name, ) {
             item_name,
             voter_name
         })
-    })
-      .then(parseJSON)
-    return new Promise(function(resolve, reject){
-        api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
-            resolve(parseRes(resp))
-        }).catch(function (err) {
-            reject(err)
-        })  
-    })
+    }).then(parseJSON)
 }
 
 function getVoteInfo(rankId) {

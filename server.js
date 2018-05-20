@@ -71,7 +71,6 @@ app.get('/public/ranks/:id', async ({ params }, res) => {
 		return i.name === '全球区块链黑客马拉松'
 	})[0]
 	const votes = votes_temp || []
-	console.log('votes_temp', votes_temp)
 	const items = tickers.items || []
 	const avotes = items.map(i => {
 		const count = votes.filter(a => a.item_name === i.item_name).length
@@ -93,4 +92,4 @@ app.use('/', express.static('nofish-voter/dist'));
 app.use('/login', express.static('nofish-voter/dist'));
 app.use('/dashboard', express.static('nofish-voter/dist'));
 
-app.listen(9000);
+app.listen(9999);
