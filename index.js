@@ -7,7 +7,7 @@ var api = nebClient.api
 
 var v4 = '{"version":4,"id":"4b80625e-eef0-42f4-97ad-e4005b3b20a1","address":"n1Uvh5mFqNWApVdWXnWKxaiRrMPYcBsfWWN","crypto":{"ciphertext":"64f7267c6376ceea314e579d29ddf7b7032401bd97acbcb969c42f2460e6fd6c","cipherparams":{"iv":"37ac99ce2e44095d0fca8d4a59200559"},"cipher":"aes-128-ctr","kdf":"scrypt","kdfparams":{"dklen":32,"salt":"31cc27adc182aeb1a626af47ca53926cdd3cb0df819b357aff1766daefb83e24","n":4096,"r":8,"p":1},"mac":"976c44d7a7be970e5512c59a9e812143216d50c02a51c3d6c8ac3db7844e0943","machash":"sha3256"}}';
 var acc = new Account();
-var dappAddress = "n1qvYEKW9H7t9qXQXnWE9kqr97McKKdoAed";
+var dappAddress = "n23BRD8CQE8btGtVD6GZuJ7hcg2TpsTpmKR";
 acc = acc.fromKey(v4, "liuzhenkuo0316", true);
 
 var from = acc.getAddressString();
@@ -72,13 +72,13 @@ function inviteVoter(voter) {
     })
 }
 
-function vote(v) {
-	if (!v) {
+function vote(rank_name, voter_name, item_name, ) {
+	if (!rank_name || !voter_name) {
 		return;
 	}
-
+    
     var callFunction = "vote";
-    var callArgs = "[\"" + JSON.stringify(req) + "\"]";
+    var callArgs = "[\"" + rank_name + "\", \"" + item_name + "\", \"" + voter_name + "\"]";
     var contract = {
         "function": callFunction,
         "args": callArgs

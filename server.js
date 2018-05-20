@@ -57,52 +57,27 @@ app.get('/api/rankings', async (req, res) => {
 });
 
 app.get('/public/ranks/:id', async ({ params }, res) => {
-	// const info = await getRankById(params.id);
-	console.log(params.id);
+	const info = await getRanksInfo();
+	const tickers = info.filter((i) => {
+		return i.name === '全球区块链黑客马拉松'
+	})[0]
+	const votes = tickers.votes || []
+	const items = tickers.items || []
+	const avotes = items.map(i => {
+		const count = votes.filter(a => a.item_name === i.item_name).length
+		const sum = votes.length
+		console.log(count, sum);
+		return {
+			count: count,
+			percent: (votes / sum) * 100,
+			name: i.item_name,
+			desc: i.desc
+		}
+	})
 	res.render('index', {
-		name: '黑客马拉松',
-		items: [{
-			count: 19,
-			percent: 20,
-			name: 'HC',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 5,
-			name: '对标链',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 5,
-			name: '无鱼排行',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 25,
-			name: '无鱼排行',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 35,
-			name: '无鱼排行',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 15,
-			name: '无鱼排行',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 95,
-			name: '无鱼排行',
-			desc: '描述文字'
-		},{
-			count: 5,
-			percent: 55,
-			name: '无鱼排行',
-			desc: '描述文字'
-		}]
+		name: tickers.name,
+		items: avotes
 	});
 });
 
-app.listen(3000);
+app.listen(9000);
