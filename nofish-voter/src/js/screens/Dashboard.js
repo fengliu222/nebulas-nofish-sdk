@@ -51,7 +51,7 @@ class Dashboard extends Component {
   }
 
   _vote(id) {
-    sdk.vote('全球区块链黑客马拉松', localStorage.getItem('user'), id).then(function(res){
+    sdk.vote('全球区块链黑客马拉松', "user", id).then(function(res){
       this.setState({
         hasVote: id
       })
@@ -65,7 +65,6 @@ class Dashboard extends Component {
     if(!this.state.rank || !this.state.rank.items){
       return null
     }
-    console.log('this.state.rank.items', this.state.rank.items);
     return (
       <Article primary={true}>
         <Header

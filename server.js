@@ -89,7 +89,7 @@ app.get('/public/ranks/:id', async ({ params }, res) => {
 		const sum = votes.length;
 		return {
 			count: count,
-			percent: votes / sum * 100,
+			percent: sum > 0 ? count / sum * 100 : 0,
 			name: i.item_name,
 			desc: i.desc
 		};
@@ -104,4 +104,4 @@ app.use('/', express.static('nofish-voter/dist'));
 app.use('/login', express.static('nofish-voter/dist'));
 app.use('/dashboard', express.static('nofish-voter/dist'));
 
-app.listen(9000);
+app.listen(9999);
